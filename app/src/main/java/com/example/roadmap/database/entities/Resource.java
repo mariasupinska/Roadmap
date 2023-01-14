@@ -11,4 +11,12 @@ public class Resource {
     public String resourceUrl;
     public String resourceName;
     public String parentCourseItemId;
+
+    public Resource(int resourceId, String resourceType, String resourceUrl, String resourceName, String parentCourseItemId) {
+        this.resourceId = resourceId;
+        this.resourceType = resourceType;
+        this.resourceUrl = resourceUrl;
+        this.resourceName = resourceName;
+        this.parentCourseItemId = parentCourseItemId;
+    }
 }

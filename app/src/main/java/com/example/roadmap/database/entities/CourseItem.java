@@ -10,4 +10,11 @@ public class CourseItem {
     public String courseItemName;
     public String courseItemDescription;
     public int parentCourseId;
+
+    public CourseItem(int courseItemId, String courseItemName, String courseItemDescription, int parentCourseId) {
+        this.courseItemId = courseItemId;
+        this.courseItemName = courseItemName;
+        this.courseItemDescription = courseItemDescription;
+        this.parentCourseId = parentCourseId;
+    }
 }

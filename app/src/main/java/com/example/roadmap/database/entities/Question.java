@@ -12,4 +12,13 @@ public class Question {
     public String questionCorrectAnswer;
     public String questionPossibleAnswers;
     public int parentQuizId;
+
+    public Question(int questionId, String questionType, String questionText, String questionCorrectAnswer, String questionPossibleAnswers, int parentQuizId) {
+        this.questionId = questionId;
+        this.questionType = questionType;
+        this.questionText = questionText;
+        this.questionCorrectAnswer = questionCorrectAnswer;
+        this.questionPossibleAnswers = questionPossibleAnswers;
+        this.parentQuizId = parentQuizId;
+    }
 }

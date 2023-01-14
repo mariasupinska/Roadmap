@@ -8,4 +8,9 @@ public class Note {
     @PrimaryKey
     public int noteId;
     public String noteText;
+
+    public Note(int noteId, String noteText) {
+        this.noteId = noteId;
+        this.noteText = noteText;
+    }
 }
