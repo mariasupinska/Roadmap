@@ -10,9 +10,9 @@ public class Resource {
     public String resourceType;
     public String resourceUrl;
     public String resourceName;
-    public String parentCourseItemId;
+    public int parentCourseItemId;
 
-    public Resource(int resourceId, String resourceType, String resourceUrl, String resourceName, String parentCourseItemId) {
+    public Resource(int resourceId, String resourceType, String resourceUrl, String resourceName, int parentCourseItemId) {
         this.resourceId = resourceId;
         this.resourceType = resourceType;
         this.resourceUrl = resourceUrl;
