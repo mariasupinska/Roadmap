@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Roadmap</string>
+    <string name="menu_courses">Courses</string>
+    <string name="menu_notes">Notes</string>
+    <string name="menu_saved_courses">Saved Courses</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="courses_fragment">Courses Fragment</string>
+    <string name="notes_fragment">Notes Fragment</string>
+    <string name="saved_courses">Saved Courses</string>
 </resources>
