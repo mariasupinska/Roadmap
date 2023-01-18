@@ -14,6 +14,7 @@ import com.example.roadmap.database.entities.Note;
 import com.example.roadmap.database.entities.Question;
 import com.example.roadmap.database.entities.Quiz;
 import com.example.roadmap.database.entities.Resource;
+import com.example.roadmap.database.entities.SavedCourses;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -25,7 +26,8 @@ import java.util.concurrent.Executors;
                 Note.class,
                 Quiz.class,
                 Question.class,
-                Resource.class
+                Resource.class,
+                SavedCourses.class
         },
         version = 1,
         exportSchema = false)
