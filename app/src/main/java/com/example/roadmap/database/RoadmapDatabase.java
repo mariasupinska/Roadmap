@@ -60,7 +60,13 @@ public abstract class RoadmapDatabase extends RoomDatabase {
                                 "Git is a free and open source distributed version control system designed" +
                                         " to handle everything from small to very large projects with speed and efficiency.",
                                 1 ));
+
+                dao.insertNote(new Note(1, "pierwsza notatka", "pierwsza notatka"));
+                dao.insertNote(new Note(2, "druga notatka", "druga notatka"));
+                dao.insertNote(new Note(3, "trzecia notatka", "trzecia notatka"));
+                dao.insertNote(new Note(4, "czwarta notatka", "czwarta notatka"));
             });
+
         }
     };
 }
