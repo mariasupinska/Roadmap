@@ -9,4 +9,7 @@
     <string name="notes_fragment">Notes</string>
     <string name="saved_courses">Saved Courses</string>
     <string name="add_note">Add Note</string>
+    <string name="button_save">Save</string>
+    <string name="hint_note_title">Note Title</string>
+    <string name="hint_note_text">Note Text</string>
 </resources>

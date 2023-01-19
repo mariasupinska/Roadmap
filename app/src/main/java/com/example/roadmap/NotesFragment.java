@@ -61,8 +61,8 @@ public class NotesFragment extends Fragment {
             super(inflater.inflate(R.layout.single_note, parent, false));
             itemView.setOnClickListener(this);
 
-            contentTextView = itemView.findViewById(R.id.note_item_title);
-            titleTextView = itemView.findViewById(R.id.note_item_name);
+            titleTextView = itemView.findViewById(R.id.note_item_title);
+            contentTextView = itemView.findViewById(R.id.note_item_text);
         }
 
         public void bind(Note note){
@@ -90,7 +90,6 @@ public class NotesFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull NoteHolder holder, int position){
-            Log.d("onBindViewHolder", "WCHODZE SE TU");
             if(notes != null){
                 Note note = notes.get(position);
                 holder.bind(note);
@@ -141,7 +140,7 @@ public class NotesFragment extends Fragment {
                     public void onClick(View v){
                 FragmentTransaction fragmentTransaction = getActivity().
                         getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.frame_layout, new AddNoteFragment());
+                fragmentTransaction.replace(R.id.frame_layout, new NoteFormFragment(adapter.getItemCount()));
                 fragmentTransaction.commit();
             }
         });

@@ -60,15 +60,15 @@ public class RoadmapViewModel extends AndroidViewModel {
     public List<CourseWithCourseItems> findAllCoursesWithCourseItems() {return coursesWithCourseItems;}
     public List<QuizWithQuestions> findAllQuizesWithQuestions() {return quizesWithQuestions;}
 
-    void insertNote(Note note){
+    public void insertNote(Note note){
         roadmapRepository.insertNote(note);
     }
 
-    void updateNote(Note note){
+    public void updateNote(Note note){
         roadmapRepository.updateNote(note);
     }
 
-    void deleteNote(Note note){
+    public void deleteNote(Note note){
         roadmapRepository.deleteNote(note);
     }
 }
