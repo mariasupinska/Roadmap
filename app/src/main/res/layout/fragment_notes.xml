@@ -22,13 +22,11 @@
         android:layout_toEndOf="@+id/notes_header"
         android:text="@string/add_note" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/notes_recycler_view"
+<!--    android:layout_below="@+id/notes_header"-->
+    <include layout="@layout/recycler_view"
         android:layout_below="@+id/notes_header"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </androidx.recyclerview.widget.RecyclerView>
+        android:layout_height="match_parent"/>
 
 </RelativeLayout>
 

@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -16,9 +17,7 @@ import com.example.roadmap.database.entities.Note;
 
 public class NoteFormFragment extends Fragment {
 
-    private String formType;
-    private String editNoteTitle;
-    private String editNoteText;
+    private Note noteToEdit;
     private int notesLength;
 
     public NoteFormFragment() {
@@ -28,10 +27,8 @@ public class NoteFormFragment extends Fragment {
         this.notesLength = notesLength;
         // Required empty public constructor
     }
-    public NoteFormFragment(String formType, String editNoteTitle, String editNoteText) {
-        this.formType = formType;
-        this.editNoteTitle = editNoteTitle;
-        this.editNoteText = editNoteText;
+    public NoteFormFragment(Note noteToEdit) {
+        this.noteToEdit = noteToEdit;
     }
 
     /**
@@ -63,11 +60,10 @@ public class NoteFormFragment extends Fragment {
         EditText editTitle = view.findViewById(R.id.note_title_edit);
         EditText editText = view.findViewById(R.id.note_text_edit);
         Button saveNote = view.findViewById(R.id.button_save_note);
-
-        if(formType == "edit")
+        if(noteToEdit != null)
         {
-            editTitle.setText(editNoteTitle);
-            editText.setText(editNoteText);
+            editTitle.setText(noteToEdit.noteTitle);
+            editText.setText(noteToEdit.noteText);
         }
 
         RoadmapViewModel roadmapViewModel = new ViewModelProvider(this).get(RoadmapViewModel.class);
@@ -75,14 +71,29 @@ public class NoteFormFragment extends Fragment {
         saveNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String title = editTitle.getText().toString();
-                String text = editText.getText().toString();
-                roadmapViewModel.insertNote(new Note(notesLength+1, title, text));
 
                 FragmentTransaction fragmentTransaction = getActivity().
                         getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.frame_layout, new NotesFragment());
+                String title = editTitle.getText().toString();
+                String text = editText.getText().toString();
+                if(title.isEmpty()){
+                    Toast.makeText(getActivity(), "Note must have a title!", Toast.LENGTH_SHORT).show();
+                    fragmentTransaction.replace(R.id.frame_layout, new NoteFormFragment(notesLength+1));
+                }
+                else if(noteToEdit != null){
+                    noteToEdit.noteTitle = editTitle.getText().toString();
+                    noteToEdit.noteText = editText.getText().toString();
+                    roadmapViewModel.updateNote(noteToEdit);
+                    Toast.makeText(getActivity(), "Note updated!", Toast.LENGTH_SHORT).show();
+                    fragmentTransaction.replace(R.id.frame_layout, new NotesFragment());
+                }
+                else{
+                    roadmapViewModel.insertNote(new Note(notesLength+1, title, text));
+                    Toast.makeText(getActivity(), "Note added!", Toast.LENGTH_SHORT).show();
+                    fragmentTransaction.replace(R.id.frame_layout, new NotesFragment());
+                }
                 fragmentTransaction.commit();
+
             }
         });
 
