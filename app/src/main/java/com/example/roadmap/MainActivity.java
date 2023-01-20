@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
             return false;
         });
 
-        textView = findViewById(R.id.courses_text_view);
+        //textView = findViewById(R.id.courses_text_view);
         roadmapViewModel = new ViewModelProvider(this).get(RoadmapViewModel.class);
         courses = roadmapViewModel.findAllCourses();
         //courses.observe(this, courses -> textView.setText(courses.get(0).courseName));

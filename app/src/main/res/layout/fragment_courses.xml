@@ -1,15 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#DDD9B2"
     tools:context=".CoursesFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/courses_text_view"
+    <GridLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/courses_fragment" />
+        android:columnCount="2"
+        android:layout_margin="10dp"
+        >
 
-</FrameLayout>
+        <include layout="@layout/recycler_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </GridLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

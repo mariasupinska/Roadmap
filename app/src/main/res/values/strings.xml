@@ -5,7 +5,7 @@
     <string name="menu_saved_courses">Saved Courses</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="courses_fragment">Courses Fragment</string>
+    <string name="courses_fragment">Courses</string>
     <string name="notes_fragment">Notes</string>
     <string name="saved_courses">Saved Courses</string>
     <string name="add_note">Add Note</string>

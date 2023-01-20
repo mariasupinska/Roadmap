@@ -33,18 +33,11 @@ public class NotesFragment extends Fragment {
     private RoadmapViewModel roadmapViewModel;
     private RecyclerView recyclerView;
     private NoteAdapter noteAdapter;
-    public static final String KEY_EXTRA_NOTE_ID = "note_id";
 
     public NotesFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment NotesFragment.
-     */
     // TODO: Rename and change types and number of parameters
     public static NotesFragment newInstance() {
         NotesFragment fragment = new NotesFragment();
