@@ -30,7 +30,7 @@ import java.util.concurrent.Executors;
                 SavedCourses.class
         },
         version = 1,
-        exportSchema = false)
+        exportSchema = true)
 public abstract class RoadmapDatabase extends RoomDatabase {
     private static RoadmapDatabase roadmapDb;
     static final ExecutorService dbWriteExecutor = Executors.newSingleThreadExecutor();
@@ -40,8 +40,9 @@ public abstract class RoadmapDatabase extends RoomDatabase {
     static RoadmapDatabase getDatabase(Context context){
         if(roadmapDb == null){
             roadmapDb = Room.databaseBuilder(context.getApplicationContext(),
-                    RoadmapDatabase.class, "roadmap_db").addCallback(roomDatabaseCallback).
-                    allowMainThreadQueries().build();
+                    RoadmapDatabase.class, "roadmap_db").addCallback(roomDatabaseCallback)
+                            .allowMainThreadQueries()
+                            .createFromAsset("database/roadmap_db.db").build();
         }
         return roadmapDb;
     }
@@ -52,19 +53,10 @@ public abstract class RoadmapDatabase extends RoomDatabase {
             super.onCreate(db);
             dbWriteExecutor.execute(() -> {
                 RoadmapDao dao = roadmapDb.roadmapDao();
-                dao.insertCourse(new Course(1,"Role", "Backend"));
-                dao.insertCourseItem(
-                        new CourseItem(
-                                1,
-                                "Git",
-                                "Git is a free and open source distributed version control system designed" +
-                                        " to handle everything from small to very large projects with speed and efficiency.",
-                                1 ));
 
                 dao.insertNote(new Note(1, "pierwsza notatka", "pierwsza notatka"));
                 dao.insertNote(new Note(2, "druga notatka", "druga notatka"));
                 dao.insertNote(new Note(3, "trzecia notatka", "trzecia notatka"));
-                dao.insertNote(new Note(4, "czwarta notatka", "czwarta notatka"));
             });
 
         }
