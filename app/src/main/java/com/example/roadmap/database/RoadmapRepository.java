@@ -4,12 +4,20 @@ import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
+import com.example.roadmap.database.dao.CourseDao;
+import com.example.roadmap.database.dao.CourseItemDao;
+import com.example.roadmap.database.dao.NoteDao;
+import com.example.roadmap.database.dao.QuestionDao;
+import com.example.roadmap.database.dao.QuizDao;
+import com.example.roadmap.database.dao.ResourceDao;
+import com.example.roadmap.database.dao.SavedCourseDao;
 import com.example.roadmap.database.entities.Course;
 import com.example.roadmap.database.entities.CourseItem;
 import com.example.roadmap.database.entities.Note;
 import com.example.roadmap.database.entities.Question;
 import com.example.roadmap.database.entities.Quiz;
 import com.example.roadmap.database.entities.Resource;
+import com.example.roadmap.database.entities.SavedCourse;
 import com.example.roadmap.database.relations.CourseItemAndQuiz;
 import com.example.roadmap.database.relations.CourseItemWithResources;
 import com.example.roadmap.database.relations.CourseWithCourseItems;
@@ -18,13 +26,23 @@ import com.example.roadmap.database.relations.QuizWithQuestions;
 import java.util.List;
 
 public class RoadmapRepository {
-    private final RoadmapDao roadmapDao;
+    //private final RoadmapDao roadmapDao;
+
+    private final CourseDao courseDao;
+    private final CourseItemDao courseItemDao;
+    private final NoteDao noteDao;
+    private final QuestionDao questionDao;
+    private final QuizDao quizDao;
+    private final ResourceDao resourceDao;
+    private final SavedCourseDao savedCourseDao;
+
     private final LiveData<List<Course>> courses;
     private final LiveData<List<CourseItem>> courseItems;
     private final LiveData<List<Note>> notes;
     private final LiveData<List<Question>> questions;
     private final LiveData<List<Quiz>> quizes;
     private final LiveData<List<Resource>> resources;
+    private final LiveData<List<SavedCourse>> savedCourses;
 
     private final List<CourseItemAndQuiz> courseItemsAndQuizes;
     private final List<CourseItemWithResources> courseItemsWithResources;
@@ -33,17 +51,28 @@ public class RoadmapRepository {
 
     RoadmapRepository(Application application){
         RoadmapDatabase db = RoadmapDatabase.getDatabase(application);
-        roadmapDao = db.roadmapDao();
-        courses = roadmapDao.findAllCourses();
-        notes = roadmapDao.findAllNotes();
-        courseItems = roadmapDao.findAllCourseItems();
-        questions = roadmapDao.findAllQuestions();
-        quizes = roadmapDao.findAllQuizes();
-        resources = roadmapDao.findAllResources();
-        courseItemsAndQuizes = roadmapDao.getCourseItemsAndQuizes();
-        courseItemsWithResources = roadmapDao.getCourseItemsWithResources();
-        coursesWithCourseItems = roadmapDao.getCoursesWithCourseItems();
-        quizesWithQuestions = roadmapDao.getQuizesWithQuestions();
+        //roadmapDao = db.roadmapDao();
+
+        courseDao = db.courseDao();
+        courseItemDao = db.courseItemDao();
+        noteDao = db.noteDao();
+        questionDao = db.questionDao();
+        quizDao = db.quizDao();
+        resourceDao = db.resourceDao();
+        savedCourseDao = db.savedCourseDao();
+
+        courses = courseDao.findAllCourses();
+        courseItems = courseItemDao.findAllCourseItems();
+        notes = noteDao.findAllNotes();
+        questions = questionDao.findAllQuestions();
+        quizes = quizDao.findAllQuizes();
+        resources = resourceDao.findAllResources();
+        savedCourses = savedCourseDao.findAllSavedCourses();
+
+        courseItemsAndQuizes = courseItemDao.getCourseItemsAndQuizes();
+        courseItemsWithResources = courseItemDao.getCourseItemsWithResources();
+        coursesWithCourseItems = courseDao.getCoursesWithCourseItems();
+        quizesWithQuestions = quizDao.getQuizesWithQuestions();
     }
 
     LiveData<List<Course>> findAllCourses() {return courses;}
@@ -52,6 +81,7 @@ public class RoadmapRepository {
     LiveData<List<Question>> findAllQuestions() {return questions;}
     LiveData<List<Quiz>> findAllQuizes() {return quizes;}
     LiveData<List<Resource>> findAllResources() {return resources;}
+    LiveData<List<SavedCourse>> findAllSavedCourses() {return savedCourses;}
 
     List<CourseItemAndQuiz> findAllCourseItemsAndQuizes() {return courseItemsAndQuizes;}
     List<CourseItemWithResources> findAllCourseItemsWithResources() {return courseItemsWithResources;}
@@ -59,14 +89,14 @@ public class RoadmapRepository {
     List<QuizWithQuestions> findAllQuizesWithQuestions() {return quizesWithQuestions;}
 
     void insertNote(Note note){
-        RoadmapDatabase.dbWriteExecutor.execute(() -> roadmapDao.insertNote(note));
+        RoadmapDatabase.dbWriteExecutor.execute(() -> noteDao.insertNote(note));
     }
 
     void updateNote(Note note){
-        RoadmapDatabase.dbWriteExecutor.execute(() -> roadmapDao.updateNote(note));
+        RoadmapDatabase.dbWriteExecutor.execute(() -> noteDao.updateNote(note));
     }
 
     void deleteNote(Note note){
-        RoadmapDatabase.dbWriteExecutor.execute(() -> roadmapDao.deleteNote(note));
+        RoadmapDatabase.dbWriteExecutor.execute(() -> noteDao.deleteNote(note));
     }
 }

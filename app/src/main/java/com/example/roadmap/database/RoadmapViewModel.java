@@ -12,6 +12,7 @@ import com.example.roadmap.database.entities.Note;
 import com.example.roadmap.database.entities.Question;
 import com.example.roadmap.database.entities.Quiz;
 import com.example.roadmap.database.entities.Resource;
+import com.example.roadmap.database.entities.SavedCourse;
 import com.example.roadmap.database.relations.CourseItemAndQuiz;
 import com.example.roadmap.database.relations.CourseItemWithResources;
 import com.example.roadmap.database.relations.CourseWithCourseItems;
@@ -27,6 +28,7 @@ public class RoadmapViewModel extends AndroidViewModel {
     private final LiveData<List<Question>> questions;
     private final LiveData<List<Quiz>> quizes;
     private final LiveData<List<Resource>> resources;
+    private final LiveData<List<SavedCourse>> savedCourses;
 
     private final List<CourseItemAndQuiz> courseItemsAndQuizes;
     private final List<CourseItemWithResources> courseItemsWithResources;
@@ -42,6 +44,7 @@ public class RoadmapViewModel extends AndroidViewModel {
         questions = roadmapRepository.findAllQuestions();
         quizes = roadmapRepository.findAllQuizes();
         resources = roadmapRepository.findAllResources();
+        savedCourses = roadmapRepository.findAllSavedCourses();
         courseItemsAndQuizes = roadmapRepository.findAllCourseItemsAndQuizes();
         courseItemsWithResources = roadmapRepository.findAllCourseItemsWithResources();
         coursesWithCourseItems = roadmapRepository.findAllCoursesWithCourseItems();
@@ -54,6 +57,7 @@ public class RoadmapViewModel extends AndroidViewModel {
     public LiveData<List<Question>> findAllQuestions() {return questions;}
     public LiveData<List<Quiz>> findAllQuizes() {return quizes;}
     public LiveData<List<Resource>> findAllResources() {return resources;}
+    public LiveData<List<SavedCourse>> findAllSavedCourses() {return savedCourses;}
 
     public List<CourseItemAndQuiz> findAllCourseItemsAndQuizes() {return courseItemsAndQuizes;}
     public List<CourseItemWithResources> findAllCourseItemsWithResources() {return courseItemsWithResources;}

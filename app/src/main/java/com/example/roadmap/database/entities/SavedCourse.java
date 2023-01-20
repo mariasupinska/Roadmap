@@ -4,8 +4,8 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity
-public class SavedCourses {
+public class SavedCourse {
     @PrimaryKey
     public int savedCourseId;
-    public int parentCourseId;
+    public int parentCourseItemId;
 }
