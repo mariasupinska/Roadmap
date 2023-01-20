@@ -26,7 +26,6 @@ import com.example.roadmap.database.relations.QuizWithQuestions;
 import java.util.List;
 
 public class RoadmapRepository {
-    //private final RoadmapDao roadmapDao;
 
     private final CourseDao courseDao;
     private final CourseItemDao courseItemDao;
@@ -51,7 +50,6 @@ public class RoadmapRepository {
 
     RoadmapRepository(Application application){
         RoadmapDatabase db = RoadmapDatabase.getDatabase(application);
-        //roadmapDao = db.roadmapDao();
 
         courseDao = db.courseDao();
         courseItemDao = db.courseItemDao();

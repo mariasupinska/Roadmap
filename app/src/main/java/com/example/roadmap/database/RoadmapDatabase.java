@@ -60,18 +60,4 @@ public abstract class RoadmapDatabase extends RoomDatabase {
         return roadmapDb;
     }
 
-//    private static final RoomDatabase.Callback roomDatabaseCallback = new RoomDatabase.Callback(){
-//        @Override
-//        public void onCreate(@NonNull SupportSQLiteDatabase db){
-//            super.onCreate(db);
-//            dbWriteExecutor.execute(() -> {
-//                RoadmapDao dao = roadmapDb.roadmapDao();
-//
-//                dao.insertNote(new Note(1, "pierwsza notatka", "pierwsza notatka"));
-//                dao.insertNote(new Note(2, "druga notatka", "druga notatka"));
-//                dao.insertNote(new Note(3, "trzecia notatka", "trzecia notatka"));
-//            });
-//
-//        }
-//    };
 }
