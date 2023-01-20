@@ -1,26 +1,22 @@
 package com.example.roadmap;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.roadmap.database.RoadmapViewModel;
 import com.example.roadmap.database.entities.Course;
-import com.example.roadmap.database.entities.Note;
+import com.example.roadmap.database.relations.CourseWithCourseItems;
 
 import java.util.List;
 
@@ -48,7 +44,7 @@ public class CoursesFragment extends Fragment {
 
     private class CourseHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView courseNameTextView;
-        private Course course;
+        private CourseWithCourseItems courseWithCourseItems;
 
         public CourseHolder(LayoutInflater inflater, ViewGroup parent){
             super(inflater.inflate(R.layout.single_course, parent, false));
@@ -56,20 +52,23 @@ public class CoursesFragment extends Fragment {
             courseNameTextView = itemView.findViewById(R.id.course_name);
         }
 
-        public void bind(Course course){
-            this.course = course;
-            courseNameTextView.setText(course.courseName);
-            System.out.printf("");
+        public void bind(CourseWithCourseItems courseWithCourseItems){
+            this.courseWithCourseItems = courseWithCourseItems;
+            courseNameTextView.setText(courseWithCourseItems.course.courseName);
         }
 
         @Override
         public void onClick(View view) {
+            FragmentTransaction fragmentTransaction = getActivity().
+                    getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.frame_layout, new CourseItemsFragment(courseWithCourseItems.courseItems));
+            fragmentTransaction.commit();
         }
 
     }
 
     private class CourseAdapter extends RecyclerView.Adapter<CourseHolder> {
-        private List<Course> courses;
+        private List<CourseWithCourseItems> courses;
 
         @NonNull
         @Override
@@ -80,7 +79,7 @@ public class CoursesFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull CourseHolder holder, int position) {
             if ( courses != null ) {
-                Course course = courses.get(position);
+                CourseWithCourseItems course = courses.get(position);
                 holder.bind(course);
             } else {
                 Log.d("MainActivity", "No courses");
@@ -96,7 +95,7 @@ public class CoursesFragment extends Fragment {
             }
         }
 
-        void setCourses(List<Course> courses) {
+        void setCourses(List<CourseWithCourseItems> courses) {
             this.courses = courses;
             notifyDataSetChanged();
         }
@@ -119,7 +118,7 @@ public class CoursesFragment extends Fragment {
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
 
         roadmapViewModel = new ViewModelProvider(this).get(RoadmapViewModel.class);
-        roadmapViewModel.findAllCourses().observe(getViewLifecycleOwner(), adapter::setCourses);
+        adapter.setCourses(roadmapViewModel.findAllCoursesWithCourseItems());
 
         return view;
     }
