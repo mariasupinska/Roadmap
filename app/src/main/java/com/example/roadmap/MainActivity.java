@@ -2,6 +2,7 @@ package com.example.roadmap;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
@@ -70,7 +71,12 @@ public class MainActivity extends AppCompatActivity {
         if (binding.bottomNavigationView.getSelectedItemId() == R.id.nav_courses) {
             transaction.replace(R.id.frame_layout, new CoursesFragment());
             transaction.commit();
-        } else {
+        }
+        else if(binding.bottomNavigationView.getSelectedItemId() == R.id.nav_notes){
+            transaction.replace(R.id.frame_layout, new NotesFragment());
+            transaction.commit();
+        }
+        else {
             binding.bottomNavigationView.setSelectedItemId(R.id.nav_courses);
         }
     }
