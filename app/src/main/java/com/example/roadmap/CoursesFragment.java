@@ -1,5 +1,6 @@
 package com.example.roadmap;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -115,7 +116,12 @@ public class CoursesFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+
+        if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        } else {
+            recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 4));
+        }
 
         roadmapViewModel = new ViewModelProvider(this).get(RoadmapViewModel.class);
         adapter.setCourses(roadmapViewModel.findAllCoursesWithCourseItems());
