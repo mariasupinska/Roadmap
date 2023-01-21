@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -69,7 +71,8 @@ public class ItemCourseActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View view) {
-
+            Intent viewIntent = new Intent("android.intent.action.VIEW", Uri.parse(resource.resourceUrl));
+            startActivity(viewIntent);
         }
 
         public void bind(Resource resource){
