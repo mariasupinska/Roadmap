@@ -32,6 +32,7 @@ public class CourseItemsFragment extends Fragment {
     private RecyclerView recyclerView;
     private List<CourseItem> courseItems;
     private String parentCourseName;
+    private RoadmapViewModel roadmapViewModel;
 
     public CourseItemsFragment() {
     }
@@ -45,6 +46,7 @@ public class CourseItemsFragment extends Fragment {
         private TextView parentCourseTextView;
         private TextView titleTextView;
         private CourseItem courseItem;
+        private TextView resourceCount;
 
         public CourseItemsHolder(LayoutInflater inflater, ViewGroup parent){
             super(inflater.inflate(R.layout.single_course_item, parent, false));
@@ -52,18 +54,21 @@ public class CourseItemsFragment extends Fragment {
 
             parentCourseTextView = itemView.findViewById(R.id.parent_course_header);
             titleTextView = itemView.findViewById(R.id.course_item_name);
+            resourceCount = itemView.findViewById(R.id.resource_count);
 
         }
 
         public void bind(CourseItem courseItem){
             this.courseItem = courseItem;
             titleTextView.setText(courseItem.courseItemName);
+
+            resourceCount.setText(resourceCount.getText()+
+                    String.valueOf(roadmapViewModel.getResourcesAmount(courseItem.courseItemId)));
         }
 
         @Override
         public void onClick(View view) {
             Intent i = new Intent(getActivity(), ItemCourseActivity.class);
-            i.putExtra("PARENT_COURSE_ID", this.courseItem.parentCourseId);
             i.putExtra("COURSE_ITEM_ID", this.courseItem.courseItemId);
             startActivity(i);
         }
@@ -121,6 +126,8 @@ public class CourseItemsFragment extends Fragment {
         final CourseItemsFragment.CourseItemsAdapter adapter = new CourseItemsFragment.CourseItemsAdapter();
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        roadmapViewModel = new ViewModelProvider(this).get(RoadmapViewModel.class);
 
         TextView parentCourseHeader;
         parentCourseHeader = view.findViewById(R.id.parent_course_header);

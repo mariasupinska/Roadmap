@@ -15,6 +15,7 @@
         android:textStyle="bold"
         android:textAlignment="center"/>
 
+
     <include layout="@layout/recycler_view"
         android:layout_below="@+id/parent_course_header"
         android:layout_width="match_parent"

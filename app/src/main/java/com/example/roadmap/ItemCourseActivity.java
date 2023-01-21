@@ -11,8 +11,11 @@ import com.example.roadmap.database.relations.CourseItemAndQuiz;
 
 public class ItemCourseActivity extends AppCompatActivity {
 
-    private TextView parentcoursetextview;
-    private TextView courseitemtexview;
+    private TextView courseItemDescriptionTextView;
+    private TextView courseItemNameTextView;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,25 +23,18 @@ public class ItemCourseActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
 
-        String parentCourseID;
-        String courseItem;
         int courseItemID = bundle.getInt("COURSE_ITEM_ID");
 
-        if (bundle != null) {
-            parentCourseID = "Parent Course ID: " + bundle.getInt("PARENT_COURSE_ID");
-            courseItem =  "Course Item ID: " + bundle.getInt("COURSE_ITEM_ID");
-            courseItemID = bundle.getInt("COURSE_ITEM_ID");
-        } else {
-            parentCourseID = "No parent course ID";
-            courseItem = "No course item ID";
-        }
 
         RoadmapViewModel roadmapViewModel = new ViewModelProvider(this).get(RoadmapViewModel.class);
 
         CourseItemAndQuiz courseItemAndQuiz = roadmapViewModel.findConcreteCourseItemWithQuizes(courseItemID);
 
-        courseitemtexview = findViewById(R.id.textView);
-        courseitemtexview.setText(courseItemAndQuiz.courseItem.courseItemName);
+        courseItemNameTextView = findViewById(R.id.course_item_name);
+        courseItemNameTextView.setText(courseItemAndQuiz.courseItem.courseItemName);
+
+        courseItemDescriptionTextView = findViewById(R.id.course_item_description);
+        courseItemDescriptionTextView.setText(courseItemAndQuiz.courseItem.courseItemDescription);
 
 
     }

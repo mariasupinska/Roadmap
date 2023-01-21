@@ -31,7 +31,6 @@ public class RoadmapViewModel extends AndroidViewModel {
     private final LiveData<List<SavedCourse>> savedCourses;
 
     private final List<CourseItemAndQuiz> courseItemsAndQuizes;
-    private final List<CourseItemWithResources> courseItemsWithResources;
     private final List<CourseWithCourseItems> coursesWithCourseItems;
 
 
@@ -46,7 +45,6 @@ public class RoadmapViewModel extends AndroidViewModel {
         resources = roadmapRepository.findAllResources();
         savedCourses = roadmapRepository.findAllSavedCourses();
         courseItemsAndQuizes = roadmapRepository.findAllCourseItemsAndQuizes();
-        courseItemsWithResources = roadmapRepository.findAllCourseItemsWithResources();
         coursesWithCourseItems = roadmapRepository.findAllCoursesWithCourseItems();
 
     }
@@ -60,10 +58,23 @@ public class RoadmapViewModel extends AndroidViewModel {
     public LiveData<List<SavedCourse>> findAllSavedCourses() {return savedCourses;}
 
     public List<CourseItemAndQuiz> findAllCourseItemsAndQuizes() {return courseItemsAndQuizes;}
-    public List<CourseItemWithResources> findAllCourseItemsWithResources() {return courseItemsWithResources;}
     public List<CourseWithCourseItems> findAllCoursesWithCourseItems() {return coursesWithCourseItems;}
-    public CourseItemAndQuiz findConcreteCourseItemWithQuizes(int courseItemId) {return roadmapRepository.findConcreteCourseItemWithQuizes(courseItemId);}
-    public QuizWithQuestions findConcreteQuizWithQuestions(int quizId) {return roadmapRepository.findConcreteQuizWithQuestions(quizId);}
+
+    public int getResourcesAmount(int courseItemID){
+        return roadmapRepository.getResourcesAmount(courseItemID);
+    }
+
+    public CourseItemWithResources findCourseItemWithResources(int courseItemID) {
+        return roadmapRepository.findCourseItemWithResources(courseItemID);
+    }
+
+    public CourseItemAndQuiz findConcreteCourseItemWithQuizes(int courseItemId) {
+        return roadmapRepository.findConcreteCourseItemWithQuizes(courseItemId);
+    }
+    public QuizWithQuestions findConcreteQuizWithQuestions(int quizId) {
+        return roadmapRepository.findConcreteQuizWithQuestions(quizId);
+    }
+
     public void insertNote(Note note){
         roadmapRepository.insertNote(note);
     }

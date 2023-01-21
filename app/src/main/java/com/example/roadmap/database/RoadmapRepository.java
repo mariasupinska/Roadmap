@@ -44,7 +44,6 @@ public class RoadmapRepository {
     private final LiveData<List<SavedCourse>> savedCourses;
 
     private final List<CourseItemAndQuiz> courseItemsAndQuizes;
-    private final List<CourseItemWithResources> courseItemsWithResources;
     private final List<CourseWithCourseItems> coursesWithCourseItems;
     RoadmapRepository(Application application){
         RoadmapDatabase db = RoadmapDatabase.getDatabase(application);
@@ -66,7 +65,6 @@ public class RoadmapRepository {
         savedCourses = savedCourseDao.findAllSavedCourses();
 
         courseItemsAndQuizes = courseItemDao.getCourseItemsAndQuizes();
-        courseItemsWithResources = courseItemDao.getCourseItemsWithResources();
         coursesWithCourseItems = courseDao.getCoursesWithCourseItems();
     }
 
@@ -79,8 +77,15 @@ public class RoadmapRepository {
     LiveData<List<SavedCourse>> findAllSavedCourses() {return savedCourses;}
 
     List<CourseItemAndQuiz> findAllCourseItemsAndQuizes() {return courseItemsAndQuizes;}
-    List<CourseItemWithResources> findAllCourseItemsWithResources() {return courseItemsWithResources;}
     List<CourseWithCourseItems> findAllCoursesWithCourseItems() {return coursesWithCourseItems;}
+
+    public int getResourcesAmount(int courseItemID){
+        return courseItemDao.getResourcesAmount(courseItemID);
+    }
+
+    public CourseItemWithResources findCourseItemWithResources(int courseItemID) {
+        return courseItemDao.getCourseItemWithResources(courseItemID);
+    }
 
     public CourseItemAndQuiz findConcreteCourseItemWithQuizes(int courseItemID) {
         return courseItemDao.getCourseItemWithQuizByCourseItemId(courseItemID);

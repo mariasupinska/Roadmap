@@ -29,9 +29,12 @@ public interface CourseItemDao {
     @Query("SELECT * FROM courseitem")
     LiveData<List<CourseItem>> findAllCourseItems();
 
+    @Query("SELECT COUNT(*) FROM resource WHERE parentCourseItemId = :courseItemID")
+    public int getResourcesAmount(int courseItemID);
+
     @Transaction
-    @Query("SELECT * FROM courseitem")
-    public List<CourseItemWithResources> getCourseItemsWithResources();
+    @Query("SELECT * FROM courseitem WHERE courseItemId = :courseItemID")
+    public CourseItemWithResources getCourseItemWithResources(int courseItemID);
 
     @Transaction
     @Query("SELECT * FROM courseitem")
