@@ -3,6 +3,8 @@
     <string name="menu_courses">Courses</string>
     <string name="menu_notes">Notes</string>
     <string name="menu_saved_courses">Saved Courses</string>
+    <string name="book_api">Recommended Books</string>
+    <string name="img_cover">Book Cover</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="courses_fragment">Courses</string>

@@ -14,6 +14,9 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -111,6 +114,24 @@ public class ItemCourseActivity extends AppCompatActivity {
         public void setResources(List<Resource> resources){
             this.resources = resources;
             notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.api_menu, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_item_books_api:
+                startActivity(new Intent(ItemCourseActivity.this, RecommendedBooksActivity.class));
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }
