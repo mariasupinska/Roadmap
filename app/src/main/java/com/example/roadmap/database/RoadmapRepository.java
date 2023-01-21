@@ -46,8 +46,6 @@ public class RoadmapRepository {
     private final List<CourseItemAndQuiz> courseItemsAndQuizes;
     private final List<CourseItemWithResources> courseItemsWithResources;
     private final List<CourseWithCourseItems> coursesWithCourseItems;
-    private final List<QuizWithQuestions> quizesWithQuestions;
-
     RoadmapRepository(Application application){
         RoadmapDatabase db = RoadmapDatabase.getDatabase(application);
 
@@ -70,7 +68,6 @@ public class RoadmapRepository {
         courseItemsAndQuizes = courseItemDao.getCourseItemsAndQuizes();
         courseItemsWithResources = courseItemDao.getCourseItemsWithResources();
         coursesWithCourseItems = courseDao.getCoursesWithCourseItems();
-        quizesWithQuestions = quizDao.getQuizesWithQuestions();
     }
 
     LiveData<List<Course>> findAllCourses() {return courses;}
@@ -84,8 +81,14 @@ public class RoadmapRepository {
     List<CourseItemAndQuiz> findAllCourseItemsAndQuizes() {return courseItemsAndQuizes;}
     List<CourseItemWithResources> findAllCourseItemsWithResources() {return courseItemsWithResources;}
     List<CourseWithCourseItems> findAllCoursesWithCourseItems() {return coursesWithCourseItems;}
-    List<QuizWithQuestions> findAllQuizesWithQuestions() {return quizesWithQuestions;}
 
+    public CourseItemAndQuiz findConcreteCourseItemWithQuizes(int courseItemID) {
+        return courseItemDao.getCourseItemWithQuizByCourseItemId(courseItemID);
+    }
+
+    public QuizWithQuestions findConcreteQuizWithQuestions(int quizID) {
+        return quizDao.getQuizesWithQuestions(quizID);
+    }
     void insertNote(Note note){
         RoadmapDatabase.dbWriteExecutor.execute(() -> noteDao.insertNote(note));
     }

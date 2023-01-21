@@ -29,6 +29,6 @@ public interface QuizDao {
     LiveData<List<Quiz>> findAllQuizes();
 
     @Transaction
-    @Query("SELECT * FROM quiz")
-    public List<QuizWithQuestions> getQuizesWithQuestions();
+    @Query("SELECT * FROM quiz WHERE quizId = :quizID")
+    public QuizWithQuestions getQuizesWithQuestions(int quizID);
 }

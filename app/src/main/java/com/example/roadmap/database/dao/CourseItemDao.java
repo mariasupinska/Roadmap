@@ -36,4 +36,8 @@ public interface CourseItemDao {
     @Transaction
     @Query("SELECT * FROM courseitem")
     public List<CourseItemAndQuiz> getCourseItemsAndQuizes();
+
+    @Transaction
+    @Query("SELECT * FROM courseitem WHERE courseItemId = :courseItemID")
+    public CourseItemAndQuiz getCourseItemWithQuizByCourseItemId(int courseItemID);
 }

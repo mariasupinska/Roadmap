@@ -1,5 +1,6 @@
 package com.example.roadmap;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.roadmap.database.RoadmapViewModel;
 import com.example.roadmap.database.entities.CourseItem;
 import com.example.roadmap.database.entities.Note;
+import com.example.roadmap.database.relations.CourseItemWithResources;
 import com.example.roadmap.database.relations.CourseWithCourseItems;
 
 import java.util.List;
@@ -55,7 +57,10 @@ public class CourseItemsFragment extends Fragment {
 
         @Override
         public void onClick(View view) {
-
+            Intent i = new Intent(getActivity(), ItemCourseActivity.class);
+            i.putExtra("PARENT_COURSE_ID", this.courseItem.parentCourseId);
+            i.putExtra("COURSE_ITEM_ID", this.courseItem.courseItemId);
+            startActivity(i);
         }
 
     }

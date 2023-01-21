@@ -33,7 +33,7 @@ public class RoadmapViewModel extends AndroidViewModel {
     private final List<CourseItemAndQuiz> courseItemsAndQuizes;
     private final List<CourseItemWithResources> courseItemsWithResources;
     private final List<CourseWithCourseItems> coursesWithCourseItems;
-    private final List<QuizWithQuestions> quizesWithQuestions;
+
 
     public RoadmapViewModel(@NonNull Application application){
         super(application);
@@ -48,7 +48,7 @@ public class RoadmapViewModel extends AndroidViewModel {
         courseItemsAndQuizes = roadmapRepository.findAllCourseItemsAndQuizes();
         courseItemsWithResources = roadmapRepository.findAllCourseItemsWithResources();
         coursesWithCourseItems = roadmapRepository.findAllCoursesWithCourseItems();
-        quizesWithQuestions = roadmapRepository.findAllQuizesWithQuestions();
+
     }
 
     public LiveData<List<Course>> findAllCourses() {return courses;}
@@ -62,8 +62,8 @@ public class RoadmapViewModel extends AndroidViewModel {
     public List<CourseItemAndQuiz> findAllCourseItemsAndQuizes() {return courseItemsAndQuizes;}
     public List<CourseItemWithResources> findAllCourseItemsWithResources() {return courseItemsWithResources;}
     public List<CourseWithCourseItems> findAllCoursesWithCourseItems() {return coursesWithCourseItems;}
-    public List<QuizWithQuestions> findAllQuizesWithQuestions() {return quizesWithQuestions;}
-
+    public CourseItemAndQuiz findConcreteCourseItemWithQuizes(int courseItemId) {return roadmapRepository.findConcreteCourseItemWithQuizes(courseItemId);}
+    public QuizWithQuestions findConcreteQuizWithQuestions(int quizId) {return roadmapRepository.findConcreteQuizWithQuestions(quizId);}
     public void insertNote(Note note){
         roadmapRepository.insertNote(note);
     }
