@@ -63,4 +63,15 @@ public class MainActivity extends AppCompatActivity {
         transaction.replace(R.id.frame_layout, fragment);
         transaction.commit();
     }
+
+    @Override
+    public void onBackPressed() {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        if (binding.bottomNavigationView.getSelectedItemId() == R.id.nav_courses) {
+            transaction.replace(R.id.frame_layout, new CoursesFragment());
+            transaction.commit();
+        } else {
+            binding.bottomNavigationView.setSelectedItemId(R.id.nav_courses);
+        }
+    }
 }
