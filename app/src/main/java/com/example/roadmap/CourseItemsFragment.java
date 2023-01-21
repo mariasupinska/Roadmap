@@ -23,22 +23,26 @@ import com.example.roadmap.database.entities.Note;
 import com.example.roadmap.database.relations.CourseItemWithResources;
 import com.example.roadmap.database.relations.CourseWithCourseItems;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 public class CourseItemsFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private List<CourseItem> courseItems;
-
+    private String parentCourseName;
 
     public CourseItemsFragment() {
     }
 
-    public CourseItemsFragment(List<CourseItem> courseItems) {
+    public CourseItemsFragment(String parentCourseName, List<CourseItem> courseItems) {
         this.courseItems = courseItems;
+        this.parentCourseName = parentCourseName;
     }
 
     private class CourseItemsHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private TextView parentCourseTextView;
         private TextView titleTextView;
         private CourseItem courseItem;
 
@@ -46,6 +50,7 @@ public class CourseItemsFragment extends Fragment {
             super(inflater.inflate(R.layout.single_course_item, parent, false));
             itemView.setOnClickListener(this);
 
+            parentCourseTextView = itemView.findViewById(R.id.parent_course_header);
             titleTextView = itemView.findViewById(R.id.course_item_name);
 
         }
@@ -117,8 +122,9 @@ public class CourseItemsFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-//        roadmapViewModel = new ViewModelProvider(this).get(RoadmapViewModel.class);
-//        roadmapViewModel.findAllNotes().observe(getViewLifecycleOwner(), adapter::setNotes);
+        TextView parentCourseHeader;
+        parentCourseHeader = view.findViewById(R.id.parent_course_header);
+        parentCourseHeader.setText(parentCourseName);
 
         adapter.setCourseItems(courseItems);
 

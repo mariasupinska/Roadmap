@@ -62,7 +62,7 @@ public class CoursesFragment extends Fragment {
         public void onClick(View view) {
             FragmentTransaction fragmentTransaction = getActivity().
                     getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.frame_layout, new CourseItemsFragment(courseWithCourseItems.courseItems));
+            fragmentTransaction.replace(R.id.frame_layout, new CourseItemsFragment(courseWithCourseItems.course.courseName, courseWithCourseItems.courseItems));
             fragmentTransaction.commit();
         }
 
