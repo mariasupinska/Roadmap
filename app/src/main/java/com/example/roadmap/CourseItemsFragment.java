@@ -4,27 +4,25 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.roadmap.database.RoadmapViewModel;
 import com.example.roadmap.database.entities.CourseItem;
-import com.example.roadmap.database.entities.Note;
-import com.example.roadmap.database.relations.CourseItemWithResources;
-import com.example.roadmap.database.relations.CourseWithCourseItems;
 
-import org.w3c.dom.Text;
-
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 public class CourseItemsFragment extends Fragment {
@@ -33,6 +31,9 @@ public class CourseItemsFragment extends Fragment {
     private List<CourseItem> courseItems;
     private String parentCourseName;
     private RoadmapViewModel roadmapViewModel;
+    private CourseItemData courseItemData;
+    private CourseItemsAdapter adapter;
+    private Iterator<CourseItem> iterator;
 
     public CourseItemsFragment() {
     }
@@ -61,9 +62,8 @@ public class CourseItemsFragment extends Fragment {
         public void bind(CourseItem courseItem){
             this.courseItem = courseItem;
             titleTextView.setText(courseItem.courseItemName);
-
-            resourceCount.setText(resourceCount.getText()+
-                    String.valueOf(roadmapViewModel.getResourcesAmount(courseItem.courseItemId)));
+            resourceCount.setText(getResources().getString(R.string.resources,
+                    roadmapViewModel.getResourcesAmount(courseItem.courseItemId)));
         }
 
         @Override
@@ -112,10 +112,10 @@ public class CourseItemsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-        }
+        setHasOptionsMenu(true);
 
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -123,11 +123,12 @@ public class CourseItemsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_course_items, container, false);
         recyclerView = view.findViewById(R.id.recycler_view);
-        final CourseItemsFragment.CourseItemsAdapter adapter = new CourseItemsFragment.CourseItemsAdapter();
+        adapter = new CourseItemsFragment.CourseItemsAdapter();
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         roadmapViewModel = new ViewModelProvider(this).get(RoadmapViewModel.class);
+        courseItemData = new CourseItemData(courseItems, roadmapViewModel);
 
         TextView parentCourseHeader;
         parentCourseHeader = view.findViewById(R.id.parent_course_header);
@@ -136,5 +137,71 @@ public class CourseItemsFragment extends Fragment {
         adapter.setCourseItems(courseItems);
 
         return view;
+    }
+
+    @Override
+    public void setHasOptionsMenu(boolean hasMenu) {
+        super.setHasOptionsMenu(hasMenu);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.course_item_menu, menu);
+
+        MenuItem menuItem = menu.findItem(R.id.menu_item_search);
+        SearchView searchView = (SearchView) menuItem.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            List<CourseItem> searchedCourseItems = new LinkedList<>();
+
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                iterator = courseItemData.searchIterator(s);
+                CourseItem nextItem;
+                while(iterator.hasNext()){
+                    nextItem = iterator.next();
+                    if(nextItem != null){
+                        searchedCourseItems.add(nextItem);
+                    }
+                }
+                adapter.setCourseItems(searchedCourseItems);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                iterator = courseItemData.searchIterator(s);
+                CourseItem nextItem;
+                while(iterator.hasNext()){
+                    nextItem = iterator.next();
+                    if(nextItem != null){
+                        searchedCourseItems.add(nextItem);
+                    }
+                }
+                adapter.setCourseItems(searchedCourseItems);
+                searchedCourseItems = new LinkedList<>();
+                return false;
+            }
+        });
+
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_item_sort_by_resources:
+                List<CourseItem> sortedCourseItems = new LinkedList<>();
+                iterator = courseItemData.resourcesIterator();
+                while(iterator.hasNext()){
+                    sortedCourseItems.add(iterator.next());
+                }
+                adapter.setCourseItems(sortedCourseItems);
+                Log.d("RESSELECTED", "RES SELECTED");
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

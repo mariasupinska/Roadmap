@@ -29,7 +29,6 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textAlignment="center"
-            android:layout_below="@+id/course_item_name"
-            android:text="Available resources: "/>
+            android:layout_below="@+id/course_item_name" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
