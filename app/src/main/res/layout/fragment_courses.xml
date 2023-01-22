@@ -1,17 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 <androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#DDD9B2"
     tools:context=".CoursesFragment">
 
-    <GridLayout
+
+
+    <TextView
+        android:id="@+id/role_based_text"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Role-based"/>
+
+    <GridLayout
+        android:id="@+id/role_based_grid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:columnCount="2"
         android:layout_margin="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/role_based_text"
         >
 
         <include layout="@layout/recycler_view"
@@ -20,6 +33,30 @@
 
     </GridLayout>
 
+    <TextView
+        android:id="@+id/skill_based_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Skill-based"
+        app:layout_constraintTop_toBottomOf="@+id/role_based_grid"/>
+
+    <GridLayout
+        android:id="@+id/skill_based_grid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="2"
+        android:layout_margin="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/skill_based_text"
+        >
+
+        <include layout="@layout/recycler_view"
+            android:id="@+id/skill_based_recycler"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </GridLayout>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
