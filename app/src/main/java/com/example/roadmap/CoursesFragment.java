@@ -19,6 +19,7 @@ import com.example.roadmap.database.RoadmapViewModel;
 import com.example.roadmap.database.entities.Course;
 import com.example.roadmap.database.relations.CourseWithCourseItems;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -29,7 +30,8 @@ import java.util.List;
 public class CoursesFragment extends Fragment {
 
     private RoadmapViewModel roadmapViewModel;
-    private RecyclerView recyclerView;
+    private RecyclerView recyclerViewRole;
+    private RecyclerView recyclerViewSkill;
 
     public CoursesFragment() {
         // Required empty public constructor
@@ -96,8 +98,23 @@ public class CoursesFragment extends Fragment {
             }
         }
 
-        void setCourses(List<CourseWithCourseItems> courses) {
-            this.courses = courses;
+        List<CourseWithCourseItems> separateCourses(List<CourseWithCourseItems> courses, String category){
+            List<CourseWithCourseItems> tmpCourses = new LinkedList<>();
+            for(int i = 0; i< courses.size(); i++){
+                if(courses.get(i).course.courseCategory.equals(category))
+                    tmpCourses.add(courses.get(i));
+            }
+
+            return tmpCourses;
+        }
+
+        void setSkillCourses(List<CourseWithCourseItems> courses){
+            this.courses = separateCourses(courses, "Skill");
+            notifyDataSetChanged();
+        }
+
+        void setRoleCourses(List<CourseWithCourseItems> courses) {
+            this.courses = separateCourses(courses, "Role");
             notifyDataSetChanged();
         }
     }
@@ -110,21 +127,28 @@ public class CoursesFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        final CourseAdapter adapter = new CourseAdapter();
+        final CourseAdapter adapterRole = new CourseAdapter();
+        final CourseAdapter adapterSkill = new CourseAdapter();
 
         View view = inflater.inflate(R.layout.fragment_courses, container, false);
 
-        recyclerView = view.findViewById(R.id.recycler_view);
-        recyclerView.setAdapter(adapter);
+        recyclerViewRole = view.findViewById(R.id.recycler_view);
+        recyclerViewSkill = view.findViewById(R.id.skill_based_recycler);
+        recyclerViewRole.setAdapter(adapterRole);
+        recyclerViewSkill.setAdapter(adapterSkill);
 
         if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+            recyclerViewRole.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+            recyclerViewSkill.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         } else {
-            recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 4));
+            recyclerViewRole.setLayoutManager(new GridLayoutManager(getActivity(), 4));
+            recyclerViewSkill.setLayoutManager(new GridLayoutManager(getActivity(), 4));
         }
 
         roadmapViewModel = new ViewModelProvider(this).get(RoadmapViewModel.class);
-        adapter.setCourses(roadmapViewModel.findAllCoursesWithCourseItems());
+        List<CourseWithCourseItems> courses = roadmapViewModel.findAllCoursesWithCourseItems();
+        adapterRole.setRoleCourses(courses);
+        adapterSkill.setSkillCourses(courses);
 
         return view;
     }
