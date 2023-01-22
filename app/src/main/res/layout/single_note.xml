@@ -21,9 +21,8 @@
         android:id="@+id/note_item_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="11sp"
+        android:textSize="12sp"
         android:ellipsize="end"
-        android:maxLines="1"
         android:gravity="center"/>
 
 

@@ -10,13 +10,11 @@
     android:background="#DDD9B2"
     tools:context=".CoursesFragment">
 
-
-
     <TextView
         android:id="@+id/role_based_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Role-based"/>
+        android:text="@string/role_category"/>
 
     <GridLayout
         android:id="@+id/role_based_grid"
@@ -37,7 +35,7 @@
         android:id="@+id/skill_based_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Skill-based"
+        android:text="@string/skill_category"
         app:layout_constraintTop_toBottomOf="@+id/role_based_grid"/>
 
     <GridLayout
@@ -55,8 +53,6 @@
             android:layout_height="wrap_content"/>
 
     </GridLayout>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
