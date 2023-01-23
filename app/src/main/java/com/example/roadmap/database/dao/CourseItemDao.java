@@ -43,4 +43,8 @@ public interface CourseItemDao {
     @Transaction
     @Query("SELECT * FROM courseitem WHERE courseItemId = :courseItemID")
     public CourseItemAndQuiz getCourseItemWithQuizByCourseItemId(int courseItemID);
+
+    @Transaction
+    @Query("SELECT * FROM courseitem WHERE isFavourite = 1")
+    public List<CourseItem> getFavouriteCourseItems();
 }

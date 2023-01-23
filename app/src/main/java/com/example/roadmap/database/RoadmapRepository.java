@@ -45,6 +45,9 @@ public class RoadmapRepository {
 
     private final List<CourseItemAndQuiz> courseItemsAndQuizes;
     private final List<CourseWithCourseItems> coursesWithCourseItems;
+
+    private final List<CourseItem> favouriteCourseItems;
+
     RoadmapRepository(Application application){
         RoadmapDatabase db = RoadmapDatabase.getDatabase(application);
 
@@ -66,6 +69,8 @@ public class RoadmapRepository {
 
         courseItemsAndQuizes = courseItemDao.getCourseItemsAndQuizes();
         coursesWithCourseItems = courseDao.getCoursesWithCourseItems();
+
+        favouriteCourseItems = courseItemDao.getFavouriteCourseItems();
     }
 
     LiveData<List<Course>> findAllCourses() {return courses;}
@@ -79,6 +84,7 @@ public class RoadmapRepository {
     List<CourseItemAndQuiz> findAllCourseItemsAndQuizes() {return courseItemsAndQuizes;}
     List<CourseWithCourseItems> findAllCoursesWithCourseItems() {return coursesWithCourseItems;}
 
+    List<CourseItem> getFavouriteCourseItems() {return favouriteCourseItems;}
     public int getResourcesAmount(int courseItemID){
         return courseItemDao.getResourcesAmount(courseItemID);
     }
@@ -104,5 +110,9 @@ public class RoadmapRepository {
 
     void deleteNote(Note note){
         RoadmapDatabase.dbWriteExecutor.execute(() -> noteDao.deleteNote(note));
+    }
+
+    void updateCourseItem(CourseItem courseItem){
+        RoadmapDatabase.dbWriteExecutor.execute(() -> courseItemDao.updateCourseItem(courseItem));
     }
 }

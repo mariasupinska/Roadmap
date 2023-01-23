@@ -33,6 +33,7 @@ public class RoadmapViewModel extends AndroidViewModel {
     private final List<CourseItemAndQuiz> courseItemsAndQuizes;
     private final List<CourseWithCourseItems> coursesWithCourseItems;
 
+    private final List<CourseItem> favouriteCourseItems;
 
     public RoadmapViewModel(@NonNull Application application){
         super(application);
@@ -46,7 +47,7 @@ public class RoadmapViewModel extends AndroidViewModel {
         savedCourses = roadmapRepository.findAllSavedCourses();
         courseItemsAndQuizes = roadmapRepository.findAllCourseItemsAndQuizes();
         coursesWithCourseItems = roadmapRepository.findAllCoursesWithCourseItems();
-
+        favouriteCourseItems = roadmapRepository.getFavouriteCourseItems();
     }
 
     public LiveData<List<Course>> findAllCourses() {return courses;}
@@ -59,6 +60,7 @@ public class RoadmapViewModel extends AndroidViewModel {
 
     public List<CourseItemAndQuiz> findAllCourseItemsAndQuizes() {return courseItemsAndQuizes;}
     public List<CourseWithCourseItems> findAllCoursesWithCourseItems() {return coursesWithCourseItems;}
+    public List<CourseItem> getFavouriteCourseItems() {return favouriteCourseItems;}
 
     public int getResourcesAmount(int courseItemID){
         return roadmapRepository.getResourcesAmount(courseItemID);
@@ -85,5 +87,9 @@ public class RoadmapViewModel extends AndroidViewModel {
 
     public void deleteNote(Note note){
         roadmapRepository.deleteNote(note);
+    }
+
+    public void updateCourseItem(CourseItem courseItem){
+        roadmapRepository.updateCourseItem(courseItem);
     }
 }

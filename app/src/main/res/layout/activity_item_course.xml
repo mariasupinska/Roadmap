@@ -6,6 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".ItemCourseActivity">
 
+    <Button
+        android:id="@+id/favourite_button"
+        android:layout_width="184dp"
+        android:layout_height="wrap_content"
+        android:text="Button" />
+
     <TextView
         android:id="@+id/course_item_name"
         android:layout_width="wrap_content"

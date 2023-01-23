@@ -19,6 +19,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -35,6 +36,8 @@ public class ItemCourseActivity extends AppCompatActivity {
     private TextView courseItemNameTextView;
 
     private TextView resourceTextView;
+
+    private Button favouriteButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +65,24 @@ public class ItemCourseActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         adapter.setResources(roadmapViewModel.findCourseItemWithResources(courseItemID).resources);
+
+        favouriteButton = findViewById(R.id.favourite_button);
+        if (courseItemAndQuiz.courseItem.isFavourite == 0){
+            favouriteButton.setText("Add to favourites");
+        } else {
+            favouriteButton.setText("Remove from favourites");
+        }
+        favouriteButton.setOnClickListener(view -> {
+            if (courseItemAndQuiz.courseItem.isFavourite == 0){
+                courseItemAndQuiz.courseItem.isFavourite = 1;
+                favouriteButton.setText("Remove from favourites");
+            } else {
+                courseItemAndQuiz.courseItem.isFavourite = 0;
+                favouriteButton.setText("Add to favourites");
+            }
+            roadmapViewModel.updateCourseItem(courseItemAndQuiz.courseItem);
+        }
+        );
     }
 
     private class ItemCourseHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
