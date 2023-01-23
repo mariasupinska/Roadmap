@@ -16,4 +16,5 @@
     <string name="hint_note_text">Note Text</string>
     <string name="add_note">Add Note</string>
     <string name="button_save">Save</string>
+    <string name="menu_saved_topics">Saved Topics</string>
 </resources>

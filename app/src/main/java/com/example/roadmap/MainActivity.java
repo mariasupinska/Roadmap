@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
                     replaceFragment(new NotesFragment());
                     return true;
                 case R.id.nav_saved_courses:
-                    replaceFragment(new SavedCoursesFragment());
+                    replaceFragment(new SavedCourseItemsFragment());
                     return true;
             }
             return false;
