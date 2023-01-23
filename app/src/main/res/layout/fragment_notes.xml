@@ -7,19 +7,17 @@
 
     <TextView
         android:id="@+id/notes_header"
-        android:layout_width="250dp"
+        style="@style/NotesHeaderStyle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/menu_notes"
-        android:layout_margin="10dp"
-        android:textSize="30sp"
-        android:textStyle="bold" />
+        android:text="@string/menu_notes" />
 
     <Button
         android:id="@+id/add_note_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="7dp"
-        android:layout_toEndOf="@+id/notes_header"
+        android:layout_alignBaseline="@+id/notes_header"
+        android:layout_marginStart="275dp"
         android:text="@string/add_note" />
 
     <include layout="@layout/recycler_view"

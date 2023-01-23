@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CategoryHeaderStyle">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">32sp</item>
+<!--        <item name="android:textStyle">bold</item>-->
+        <item name="android:textAlignment">center</item>
+        <item name="android:layout_margin">15dp</item>
+    </style>
+
+    <style name="CourseHeaderStyle">
+        <item name="android:textColor">@color/title</item>
+        <item name="android:textSize">32sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:layout_margin">15dp</item>
+    </style>
+
+    <style name="CourseItemHeaderStyle">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">32sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_margin">15dp</item>
+    </style>
+
+    <style name="NotesHeaderStyle">
+        <item name="android:textSize">32sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_margin">15dp</item>
+    </style>
+
+    <style name="CourseTitle">
+        <item name="android:textColor">@color/title</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="CourseItemTitle">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="AvailableResources">
+        <item name="android:textColor">@color/less_white</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="CourseItemDescription">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:lineSpacingMultiplier">1.2</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginLeft">15dp</item>
+        <item name="android:layout_marginRight">15dp</item>
+        <item name="android:layout_marginBottom">25dp</item>
+    </style>
+
+</resources>

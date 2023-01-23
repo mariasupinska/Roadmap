@@ -15,20 +15,21 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center">
+        android:gravity="center"
+        android:background="@color/tile">
 
         <TextView
             android:id="@+id/course_item_name"
-            android:layout_width="167dp"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:gravity="center"/>
+            style="@style/CourseItemTitle"/>
 
         <TextView
             android:id="@+id/resource_count"
-            android:layout_width="167dp"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textAlignment="center"
-            android:layout_below="@+id/course_item_name" />
+            android:layout_below="@+id/course_item_name"
+            style="@style/AvailableResources" />
+
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="175dp"
+    android:layout_width="165dp"
     android:layout_height="135dp"
     android:layout_rowWeight="1"
     android:layout_columnWeight="1"
@@ -13,13 +13,14 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/tile">
 
         <TextView
             android:id="@+id/course_name"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fontFamily="sans-serif"
+            style="@style/CourseTitle"
             android:gravity="center"
             android:textAlignment="center"
             android:textSize="24sp"

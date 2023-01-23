@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 <androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#DDD9B2"
+    android:background="@color/background"
     tools:context=".CoursesFragment">
 
     <TextView
         android:id="@+id/role_based_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/role_category"/>
+        android:layout_marginTop="15dp"
+        style="@style/CategoryHeaderStyle"
+        android:text="@string/role_category"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <GridLayout
         android:id="@+id/role_based_grid"
@@ -35,8 +38,9 @@
         android:id="@+id/skill_based_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="@style/CategoryHeaderStyle"
         android:text="@string/skill_category"
-        app:layout_constraintTop_toBottomOf="@+id/role_based_grid"/>
+        app:layout_constraintTop_toBottomOf="@+id/role_based_grid" />
 
     <GridLayout
         android:id="@+id/skill_based_grid"
