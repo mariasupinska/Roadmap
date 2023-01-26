@@ -19,4 +19,12 @@
 
     <string name="sort_by_resources">Sort by available resources</string>
     <string name="menu_saved_topics">Saved Topics</string>
+
+    <string name="practise_quiz">Practise Quiz</string>
+    <string name="marked_quiz">Marked Quiz</string>
+    <string name="start_quiz">Start Quiz</string>
+    <string name="final_score">Your Final Score</string>
+    <string name="score">%d / %d</string>
+    <string name="ok">OK</string>
+    <string name="no_quiz_yet">No Quiz yet</string>
 </resources>

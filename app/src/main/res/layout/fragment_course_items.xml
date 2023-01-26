@@ -11,7 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
-        style="@style/CourseHeaderStyle"/>
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:textAlignment="center"/>
 
 
     <include layout="@layout/recycler_view"

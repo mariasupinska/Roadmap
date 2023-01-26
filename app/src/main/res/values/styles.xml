@@ -3,7 +3,7 @@
     <style name="CategoryHeaderStyle">
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">32sp</item>
-<!--        <item name="android:textStyle">bold</item>-->
+        <!--        <item name="android:textStyle">bold</item>-->
         <item name="android:textAlignment">center</item>
         <item name="android:layout_margin">15dp</item>
     </style>
@@ -24,6 +24,12 @@
     </style>
 
     <style name="NotesHeaderStyle">
+        <item name="android:textSize">32sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_margin">15dp</item>
+    </style>
+
+    <style name="FinalScoreHeaderStyle">
         <item name="android:textSize">32sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:layout_margin">15dp</item>

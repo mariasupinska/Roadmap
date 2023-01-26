@@ -42,7 +42,6 @@ public class SavedCourseItemsFragment extends Fragment {
     public SavedCourseItemsFragment(String parentCourseName, List<CourseItem> courseItems) {
         this.courseItems = courseItems;
         this.parentCourseName = parentCourseName;
-
     }
 
     private class SavedCourseItemsHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

@@ -1,16 +1,7 @@
 package com.example.roadmap;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
-import android.content.res.Configuration;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,8 +11,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.roadmap.database.RoadmapViewModel;
 import com.example.roadmap.database.entities.Resource;
@@ -35,9 +32,21 @@ public class ItemCourseActivity extends AppCompatActivity {
     private TextView courseItemDescriptionTextView;
     private TextView courseItemNameTextView;
 
+    private TextView noQuizTextView;
     private TextView resourceTextView;
 
     private Button favouriteButton;
+
+    private Button practise_quiz;
+    private Button marked_quiz;
+    private Button start_quiz;
+
+    private State state;
+    private int quizId;
+
+    private void changeState(State state) {
+        this.state = state;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +62,10 @@ public class ItemCourseActivity extends AppCompatActivity {
         roadmapViewModel = new ViewModelProvider(this).get(RoadmapViewModel.class);
         CourseItemAndQuiz courseItemAndQuiz = roadmapViewModel.findConcreteCourseItemWithQuizes(courseItemID);
 
+        if (courseItemAndQuiz.quiz != null) {
+            quizId = courseItemAndQuiz.quiz.quizId;
+        }
+
         courseItemNameTextView = findViewById(R.id.course_item_name);
         courseItemNameTextView.setText(courseItemAndQuiz.courseItem.courseItemName);
 
@@ -67,11 +80,13 @@ public class ItemCourseActivity extends AppCompatActivity {
         adapter.setResources(roadmapViewModel.findCourseItemWithResources(courseItemID).resources);
 
         favouriteButton = findViewById(R.id.favourite_button);
+
         if (courseItemAndQuiz.courseItem.isFavourite == 0){
             favouriteButton.setText("Add to favourites");
         } else {
             favouriteButton.setText("Remove from favourites");
         }
+
         favouriteButton.setOnClickListener(view -> {
             if (courseItemAndQuiz.courseItem.isFavourite == 0){
                 courseItemAndQuiz.courseItem.isFavourite = 1;
@@ -81,8 +96,59 @@ public class ItemCourseActivity extends AppCompatActivity {
                 favouriteButton.setText("Add to favourites");
             }
             roadmapViewModel.updateCourseItem(courseItemAndQuiz.courseItem);
+        });
+
+        practise_quiz = findViewById(R.id.practise_quiz_button);
+        marked_quiz = findViewById(R.id.marked_quiz_button);
+        start_quiz = findViewById(R.id.start_quiz_button);
+
+        if (courseItemAndQuiz.quiz == null) {
+            practise_quiz.setVisibility(View.GONE);
+            marked_quiz.setVisibility(View.GONE);
+            start_quiz.setVisibility(View.GONE);
+            noQuizTextView = findViewById(R.id.no_quiz_text);
+            noQuizTextView.setVisibility(View.VISIBLE);
+
+        } else {
+            practise_quiz.setBackgroundColor(Color.GRAY);
+            marked_quiz.setBackgroundColor(Color.GRAY);
+            start_quiz.setVisibility(View.GONE);
         }
-        );
+
+        practise_quiz.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                changeState(new PractiseState(ItemCourseActivity.this));
+                state.loadPractiseQuiz();
+                practise_quiz.setBackgroundColor(getResources().getColor(R.color.purple_500));
+                marked_quiz.setBackgroundColor(Color.GRAY);
+                start_quiz.setVisibility(View.VISIBLE);
+                Toast.makeText(getApplicationContext(),"Practise option chosen!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        marked_quiz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changeState(new MarkedState(ItemCourseActivity.this));
+                state.loadMarkedQuiz();
+                marked_quiz.setBackgroundColor(getResources().getColor(R.color.purple_500));
+                practise_quiz.setBackgroundColor(Color.GRAY);
+                start_quiz.setVisibility(View.VISIBLE);
+                Toast.makeText(getApplicationContext(),"Marked option chosen!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        start_quiz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(ItemCourseActivity.this, QuizActivity.class);
+                i.putExtra("IF_MARKED", state.isMarked());
+                i.putExtra("QUIZ_ID", quizId);
+                startActivity(i);
+            }
+        });
     }
 
     private class ItemCourseHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
