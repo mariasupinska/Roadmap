@@ -3,21 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#DDD9B2"
+    android:background="@color/background"
     tools:context=".SavedCourseItemsFragment">
 
     <TextView
-        android:id="@+id/parent_course_header"
+        android:id="@+id/saved_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
         android:textSize="30sp"
         android:textStyle="bold"
+        android:text="@string/menu_saved_courses"
+        android:textColor="@color/white"
         android:textAlignment="center"/>
 
 
     <include layout="@layout/recycler_view"
-        android:layout_below="@+id/parent_course_header"
+        android:layout_below="@+id/saved_header"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </RelativeLayout>

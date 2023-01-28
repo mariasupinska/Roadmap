@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context=".CoursesFragment">
 
     <LinearLayout
@@ -27,7 +28,10 @@
             android:inputType="textAutoComplete"
             android:minHeight="48dp"
             android:padding="5dp"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:backgroundTint="@color/white"/>
 
         <ScrollView
             android:id="@+id/ScrollView01"
@@ -41,6 +45,8 @@
                 android:padding="5dp"
                 android:hint="@string/hint_note_text"
                 android:inputType="text|textMultiLine"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
                 android:background="@null"/>
 
         </ScrollView>

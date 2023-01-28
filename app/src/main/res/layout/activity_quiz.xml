@@ -7,6 +7,7 @@
     android:gravity="center"
     android:orientation="vertical"
     android:padding="30dp"
+    android:background="@color/background"
     tools:context=".QuizActivity">
 
 
@@ -15,33 +16,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:textColor="@color/white"
         android:padding="30dp"
-        android:text="LMAO"
         android:textSize="24sp" />
 
     <Button
         android:id="@+id/answer_one"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Button" />
+        android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/answer_two"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Button" />
+        android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/answer_three"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Button" />
+        android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/answer_four"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Button" />
+        android:layout_height="wrap_content" />
 
 
 </LinearLayout>

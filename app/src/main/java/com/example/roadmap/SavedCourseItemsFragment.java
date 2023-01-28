@@ -30,7 +30,6 @@ public class SavedCourseItemsFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private List<CourseItem> courseItems;
-    private String parentCourseName;
     private RoadmapViewModel roadmapViewModel;
     private CourseItemData courseItemData;
     private SavedCourseItemsFragment.SavedCourseItemsAdapter adapter;
@@ -39,13 +38,8 @@ public class SavedCourseItemsFragment extends Fragment {
     public SavedCourseItemsFragment() {
     }
 
-    public SavedCourseItemsFragment(String parentCourseName, List<CourseItem> courseItems) {
-        this.courseItems = courseItems;
-        this.parentCourseName = parentCourseName;
-    }
-
     private class SavedCourseItemsHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private TextView parentCourseTextView;
+
         private TextView titleTextView;
         private CourseItem courseItem;
         private TextView resourceCount;
@@ -54,7 +48,6 @@ public class SavedCourseItemsFragment extends Fragment {
             super(inflater.inflate(R.layout.single_course_item, parent, false));
             itemView.setOnClickListener(this);
 
-            parentCourseTextView = itemView.findViewById(R.id.parent_course_header);
             titleTextView = itemView.findViewById(R.id.course_item_name);
             resourceCount = itemView.findViewById(R.id.resource_count);
 
@@ -122,7 +115,7 @@ public class SavedCourseItemsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_course_items, container, false);
+        View view = inflater.inflate(R.layout.fragment_saved_courses, container, false);
         recyclerView = view.findViewById(R.id.recycler_view);
         adapter = new SavedCourseItemsFragment.SavedCourseItemsAdapter();
         recyclerView.setAdapter(adapter);
@@ -136,10 +129,6 @@ public class SavedCourseItemsFragment extends Fragment {
 
         courseItems = savedCourseItemsStorage.getCourseItems();
         courseItemData = new CourseItemData(courseItems, roadmapViewModel);
-
-        TextView parentCourseHeader;
-        parentCourseHeader = view.findViewById(R.id.parent_course_header);
-        parentCourseHeader.setText(parentCourseName);
 
         adapter.setCourseItems(courseItems);
 
@@ -199,12 +188,14 @@ public class SavedCourseItemsFragment extends Fragment {
             case R.id.menu_item_sort_by_resources:
                 List<CourseItem> sortedCourseItems = new LinkedList<>();
                 iterator = courseItemData.resourcesIterator();
+
                 while(iterator.hasNext()){
                     sortedCourseItems.add(iterator.next());
                 }
+
                 adapter.setCourseItems(sortedCourseItems);
-                Log.d("RESSELECTED", "RES SELECTED");
                 break;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
