@@ -1,15 +1,8 @@
 package com.example.roadmap;
 
-import android.app.Application;
-
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.lifecycle.ViewModelStoreOwner;
-
 import com.example.roadmap.database.RoadmapViewModel;
 import com.example.roadmap.database.entities.CourseItem;
 
-import java.text.Collator;
 import java.util.List;
 
 public class SavedCourseItemsStorage {

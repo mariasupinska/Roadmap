@@ -16,17 +16,12 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.roadmap.database.RoadmapViewModel;
-import com.example.roadmap.database.entities.Course;
 import com.example.roadmap.database.relations.CourseWithCourseItems;
 
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link CoursesFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class CoursesFragment extends Fragment {
 
     private RoadmapViewModel roadmapViewModel;

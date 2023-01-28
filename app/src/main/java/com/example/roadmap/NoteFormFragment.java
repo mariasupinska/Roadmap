@@ -25,18 +25,11 @@ public class NoteFormFragment extends Fragment {
     }
     public NoteFormFragment(int notesLength) {
         this.notesLength = notesLength;
-        // Required empty public constructor
     }
     public NoteFormFragment(Note noteToEdit) {
         this.noteToEdit = noteToEdit;
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment CoursesFragment.
-     */
     // TODO: Rename and change types and number of parameters
     public static NoteFormFragment newInstance(String param1, String param2) {
         NoteFormFragment fragment = new NoteFormFragment();
@@ -48,8 +41,6 @@ public class NoteFormFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-        }
     }
 
     @Override
@@ -97,7 +88,6 @@ public class NoteFormFragment extends Fragment {
             }
         });
 
-        // Inflate the layout for this fragment
         return view;
     }
 }

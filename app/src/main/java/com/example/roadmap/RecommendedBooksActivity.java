@@ -33,8 +33,7 @@ public class RecommendedBooksActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recommended_books);
-        //TODO: change hardcoded param
-        fetchBooksData("Internet");
+        fetchBooksData("Git");
     }
 
     private void fetchBooksData(String query) {
