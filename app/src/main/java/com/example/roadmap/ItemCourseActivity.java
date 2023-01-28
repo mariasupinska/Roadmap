@@ -144,6 +144,7 @@ public class ItemCourseActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(ItemCourseActivity.this, QuizActivity.class);
+                i.putExtra("COURSE_ITEM_ID", courseItemID);
                 i.putExtra("IF_MARKED", state.isMarked());
                 i.putExtra("QUIZ_ID", quizId);
                 startActivity(i);

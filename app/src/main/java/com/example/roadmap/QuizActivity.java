@@ -36,6 +36,7 @@ public class QuizActivity extends AppCompatActivity {
         setContentView(R.layout.activity_quiz);
 
         Bundle bundle = getIntent().getExtras();
+        int courseItemID = bundle.getInt("COURSE_ITEM_ID");
         int quizId = bundle.getInt("QUIZ_ID");
         boolean isMarked = bundle.getBoolean("IF_MARKED");
 
@@ -64,107 +65,55 @@ public class QuizActivity extends AppCompatActivity {
         answer_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if ( isMarked ) {
-                    checkAnswerCorrectness(questionsForUser, 0);
-                }
-
-                currentIndex++;
-
-                if ( currentIndex < questionsForUser.size() ) {
-                    setNextQuestion(questionsForUser);
-                } else {
-                    Intent intent;
-                    if ( isMarked ) {
-                        intent = new Intent(getApplicationContext(), FinalScoreActivity.class);
-                        intent.putExtra("USER_SCORE", finalScore);
-                        intent.putExtra("AMOUNT_OF_QUESTIONS", questionsForUser.size());
-                    } else {
-                        intent = new Intent(getApplicationContext(), ItemCourseActivity.class);
-                    }
-                    startActivity(intent);
-                    finish();
-                }
+                onClickHandler(isMarked, questionsForUser, 0, courseItemID);
             }
         });
 
         answer_2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if ( isMarked ) {
-                    checkAnswerCorrectness(questionsForUser, 1);
-                }
-
-                currentIndex++;
-
-                if ( currentIndex < questionsForUser.size() ) {
-                    setNextQuestion(questionsForUser);
-                } else {
-                    Intent intent;
-                    if ( isMarked ) {
-                        intent = new Intent(getApplicationContext(), FinalScoreActivity.class);
-                        intent.putExtra("USER_SCORE", finalScore);
-                        intent.putExtra("AMOUNT_OF_QUESTIONS", questionsForUser.size());
-                    } else {
-                        intent = new Intent(getApplicationContext(), ItemCourseActivity.class);
-                    }
-                    startActivity(intent);
-                    finish();
-                }
+                onClickHandler(isMarked, questionsForUser, 1, courseItemID);
             }
         });
 
         answer_3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if ( isMarked ) {
-                    checkAnswerCorrectness(questionsForUser, 2);
-                }
-
-                currentIndex++;
-
-                if ( currentIndex < questionsForUser.size() ) {
-                    setNextQuestion(questionsForUser);
-                } else {
-                    Intent intent;
-                    if ( isMarked ) {
-                        intent = new Intent(getApplicationContext(), FinalScoreActivity.class);
-                        intent.putExtra("USER_SCORE", finalScore);
-                        intent.putExtra("AMOUNT_OF_QUESTIONS", questionsForUser.size());
-                    } else {
-                        intent = new Intent(getApplicationContext(), ItemCourseActivity.class);
-                    }
-                    startActivity(intent);
-                    finish();
-                }
+                onClickHandler(isMarked, questionsForUser, 2, courseItemID);
             }
         });
 
         answer_4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if ( isMarked ) {
-                    checkAnswerCorrectness(questionsForUser, 3);
-                }
-
-                currentIndex++;
-
-                if ( currentIndex < questionsForUser.size() ) {
-                    setNextQuestion(questionsForUser);
-                } else {
-                    Intent intent;
-                    if ( isMarked ) {
-                        intent = new Intent(getApplicationContext(), FinalScoreActivity.class);
-                        intent.putExtra("USER_SCORE", finalScore);
-                        intent.putExtra("AMOUNT_OF_QUESTIONS", questionsForUser.size());
-                    } else {
-                        intent = new Intent(getApplicationContext(), ItemCourseActivity.class);
-                    }
-                    startActivity(intent);
-                    finish();
-                }
+                onClickHandler(isMarked, questionsForUser, 3, courseItemID);
             }
         });
 
+    }
+
+    private void onClickHandler(boolean isMarked, List<Question> questionsForUser, int index, int courseItemID) {
+        if (isMarked) {
+            checkAnswerCorrectness(questionsForUser, index);
+        }
+
+        currentIndex++;
+
+        if ( currentIndex < questionsForUser.size() ) {
+            setNextQuestion(questionsForUser);
+        } else {
+            Intent intent;
+            if (isMarked) {
+                intent = new Intent(getApplicationContext(), FinalScoreActivity.class);
+                intent.putExtra("COURSE_ITEM_ID", courseItemID);
+                intent.putExtra("USER_SCORE", finalScore);
+                intent.putExtra("AMOUNT_OF_QUESTIONS", questionsForUser.size());
+            } else {
+                intent = new Intent(getApplicationContext(), ItemCourseActivity.class);
+            }
+            startActivity(intent);
+            finish();
+        }
     }
 
     private void checkAnswerCorrectness(List<Question> questionsForUser, int index) {
