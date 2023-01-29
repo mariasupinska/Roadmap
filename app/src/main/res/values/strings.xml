@@ -27,4 +27,6 @@
     <string name="score">%d / %d</string>
     <string name="ok">OK</string>
     <string name="no_quiz_yet">No Quiz yet</string>
+    <string name="easy_level">Easy Level</string>
+    <string name="hard_level">Hard level</string>
 </resources>
