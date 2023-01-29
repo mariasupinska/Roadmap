@@ -118,8 +118,8 @@ public class ItemCourseActivity extends AppCompatActivity {
         } else {
             practise_quiz.setBackgroundColor(Color.GRAY);
             marked_quiz.setBackgroundColor(Color.GRAY);
-            easy_quiz.setBackgroundColor(Color.GRAY);
-            hard_quiz.setBackgroundColor(Color.GRAY);
+            easy_quiz.setVisibility(View.GONE);
+            hard_quiz.setVisibility(View.GONE);
             start_quiz.setVisibility(View.GONE);
         }
 
@@ -131,6 +131,10 @@ public class ItemCourseActivity extends AppCompatActivity {
                 state.loadPractiseQuiz();
                 practise_quiz.setBackgroundColor(getResources().getColor(R.color.purple_500));
                 marked_quiz.setBackgroundColor(Color.GRAY);
+                easy_quiz.setVisibility(View.VISIBLE);
+                easy_quiz.setBackgroundColor(Color.GRAY);
+                hard_quiz.setVisibility(View.VISIBLE);
+                hard_quiz.setBackgroundColor(Color.GRAY);
                 Toast.makeText(getApplicationContext(),"Practise option chosen!", Toast.LENGTH_SHORT).show();
             }
         });
@@ -142,6 +146,10 @@ public class ItemCourseActivity extends AppCompatActivity {
                 state.loadMarkedQuiz();
                 marked_quiz.setBackgroundColor(getResources().getColor(R.color.purple_500));
                 practise_quiz.setBackgroundColor(Color.GRAY);
+                easy_quiz.setVisibility(View.VISIBLE);
+                easy_quiz.setBackgroundColor(Color.GRAY);
+                hard_quiz.setVisibility(View.VISIBLE);
+                hard_quiz.setBackgroundColor(Color.GRAY);
                 Toast.makeText(getApplicationContext(),"Marked option chosen!", Toast.LENGTH_SHORT).show();
             }
         });
