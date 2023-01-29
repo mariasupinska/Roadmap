@@ -21,4 +21,8 @@ public class Question {
         this.questionPossibleAnswers = questionPossibleAnswers;
         this.parentQuizId = parentQuizId;
     }
+
+    public Object getQuestionType() {
+        return this.questionType;
+    }
 }

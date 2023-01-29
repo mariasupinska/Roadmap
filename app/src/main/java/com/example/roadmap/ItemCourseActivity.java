@@ -40,9 +40,11 @@ public class ItemCourseActivity extends AppCompatActivity {
     private Button practise_quiz;
     private Button marked_quiz;
     private Button start_quiz;
-
+    private Button easy_quiz;
+    private Button hard_quiz;
     private State state;
     private int quizId;
+    private int quizLevel;
 
     private void changeState(State state) {
         this.state = state;
@@ -100,18 +102,24 @@ public class ItemCourseActivity extends AppCompatActivity {
 
         practise_quiz = findViewById(R.id.practise_quiz_button);
         marked_quiz = findViewById(R.id.marked_quiz_button);
+        easy_quiz = findViewById(R.id.easy_level_button);
+        hard_quiz = findViewById(R.id.hard_level_button);
         start_quiz = findViewById(R.id.start_quiz_button);
 
         if (courseItemAndQuiz.quiz == null) {
             practise_quiz.setVisibility(View.GONE);
             marked_quiz.setVisibility(View.GONE);
             start_quiz.setVisibility(View.GONE);
+            easy_quiz.setVisibility(View.GONE);
+            hard_quiz.setVisibility(View.GONE);
             noQuizTextView = findViewById(R.id.no_quiz_text);
             noQuizTextView.setVisibility(View.VISIBLE);
 
         } else {
             practise_quiz.setBackgroundColor(Color.GRAY);
             marked_quiz.setBackgroundColor(Color.GRAY);
+            easy_quiz.setBackgroundColor(Color.GRAY);
+            hard_quiz.setBackgroundColor(Color.GRAY);
             start_quiz.setVisibility(View.GONE);
         }
 
@@ -123,7 +131,6 @@ public class ItemCourseActivity extends AppCompatActivity {
                 state.loadPractiseQuiz();
                 practise_quiz.setBackgroundColor(getResources().getColor(R.color.purple_500));
                 marked_quiz.setBackgroundColor(Color.GRAY);
-                start_quiz.setVisibility(View.VISIBLE);
                 Toast.makeText(getApplicationContext(),"Practise option chosen!", Toast.LENGTH_SHORT).show();
             }
         });
@@ -135,8 +142,29 @@ public class ItemCourseActivity extends AppCompatActivity {
                 state.loadMarkedQuiz();
                 marked_quiz.setBackgroundColor(getResources().getColor(R.color.purple_500));
                 practise_quiz.setBackgroundColor(Color.GRAY);
-                start_quiz.setVisibility(View.VISIBLE);
                 Toast.makeText(getApplicationContext(),"Marked option chosen!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        easy_quiz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                easy_quiz.setBackgroundColor(getResources().getColor(R.color.purple_500));
+                hard_quiz.setBackgroundColor(Color.GRAY);
+                start_quiz.setVisibility(View.VISIBLE);
+                quizLevel = 1;
+                Toast.makeText(getApplicationContext(),"Easy option chosen!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        hard_quiz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hard_quiz.setBackgroundColor(getResources().getColor(R.color.purple_500));
+                easy_quiz.setBackgroundColor(Color.GRAY);
+                start_quiz.setVisibility(View.VISIBLE);
+                quizLevel = 2;
+                Toast.makeText(getApplicationContext(),"Hard option chosen!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -147,9 +175,11 @@ public class ItemCourseActivity extends AppCompatActivity {
                 i.putExtra("COURSE_ITEM_ID", courseItemID);
                 i.putExtra("IF_MARKED", state.isMarked());
                 i.putExtra("QUIZ_ID", quizId);
+                i.putExtra("QUIZ_LEVEL", quizLevel);
                 startActivity(i);
             }
         });
+
     }
 
     private class ItemCourseHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

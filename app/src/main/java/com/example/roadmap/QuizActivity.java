@@ -29,7 +29,6 @@ public class QuizActivity extends AppCompatActivity {
 
     int currentIndex = 0;
     int finalScore = 0;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,11 +37,16 @@ public class QuizActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         int courseItemID = bundle.getInt("COURSE_ITEM_ID");
         int quizId = bundle.getInt("QUIZ_ID");
+        int quizLevel = bundle.getInt("QUIZ_LEVEL");
         boolean isMarked = bundle.getBoolean("IF_MARKED");
 
         RoadmapViewModel roadmapViewModel;
         roadmapViewModel = new ViewModelProvider(this).get(RoadmapViewModel.class);
-        QuizWithQuestions quizWithQuestions = roadmapViewModel.findConcreteQuizWithQuestions(quizId);
+
+        QuizDirector quizDirector = new QuizDirector();
+        quizDirector.constructQuiz(roadmapViewModel, quizId, quizLevel);
+
+        QuizWithQuestions quizWithQuestions = quizDirector.getQuizWithQuestions();
 
         questionTextView = findViewById(R.id.question_text_view);
         answer_1 = findViewById(R.id.answer_one);
